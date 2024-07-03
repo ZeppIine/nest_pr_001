@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Lecture } from "src/lecture/entities/lecture.entity";
+import { School } from "src/school/entities/school.entity";
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('user')
 export class User {
@@ -8,4 +10,8 @@ export class User {
     name: string;
     @Column()
     birth: Date;
+    @OneToMany(() => Lecture, (lecture) => lecture.user)
+    lecture: Lecture[];
+    @OneToOne(() => School, (school) => school.user)
+    school: School;
 }
