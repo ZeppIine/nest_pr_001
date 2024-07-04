@@ -6,10 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { JwtPrGuard } from 'src/jwt_pr/jwt_pr.guard';
 
 @Controller('user')
 export class UserController {
@@ -26,6 +28,7 @@ export class UserController {
   }
 
   @Get(':id')
+  @UseGuards(JwtPrGuard)
   findOne(@Param('id') id: number) {
     return this.userService.findOne(id);
   }
