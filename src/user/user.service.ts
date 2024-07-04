@@ -7,7 +7,9 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(User) private readonly userRepository: Repository<User>){}
+  constructor(
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
+  ) {}
 
   create(createUserDto: CreateUserDto) {
     const newUser = this.userRepository.create(createUserDto);
@@ -19,9 +21,9 @@ export class UserService {
   }
 
   async findOne(id: number) {
-    const user = await this.userRepository.findOne({where: {id}});
-    if(!user) throw new NotFoundException('user not found')
-      return user
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) throw new NotFoundException('user not found');
+    return user;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

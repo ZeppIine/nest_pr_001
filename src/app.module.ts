@@ -8,7 +8,12 @@ import { LectureModule } from './lecture/lecture.module';
 import typeORMConfig from './config/typeorm.config';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeORMConfig), UserModule, SchoolModule, LectureModule],
+  imports: [
+    TypeOrmModule.forRoot(typeORMConfig),
+    UserModule,
+    SchoolModule,
+    LectureModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
