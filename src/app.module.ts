@@ -6,6 +6,8 @@ import { UserModule } from './user/user.module';
 import { SchoolModule } from './school/school.module';
 import { LectureModule } from './lecture/lecture.module';
 import typeORMConfig from './config/typeorm.config';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import typeORMConfig from './config/typeorm.config';
     UserModule,
     SchoolModule,
     LectureModule,
+    JwtModule.register({ global: true }),
+    ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [AppController],
   providers: [AppService],
