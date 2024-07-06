@@ -6,4 +6,10 @@ export class CreateUserDto {
   name: string;
   @IsDateString()
   birth: Date;
+  @IsString()
+  @Length(8, 15)
+  username: string;
+  @IsString()
+  @Length(4, 20)
+  password: string;
 }

@@ -12,6 +12,10 @@ import {
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
+  @Column({ length: 15, type: 'varchar', unique: true })
+  username: string;
+  @Column({ length: 100, type: 'varchar' })
+  password: string;
   @Column({ length: 16, type: 'varchar' })
   name: string;
   @Column()
