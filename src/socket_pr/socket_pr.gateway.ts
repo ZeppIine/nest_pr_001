@@ -32,14 +32,9 @@ export class SocketPrGateway
     this.logger.log(`[ConnectedAt] ${socket.handshake.address}`);
   }
 
-  @SubscribeMessage('test')
-  handleTest() {
-    return 'hello websocket';
-  }
-
   @SubscribeMessage('pingpong')
   handlePingPong(@MessageBody() body: any, @ConnectedSocket() socket: Socket) {
-    socket.emit('pingpongResponse', body);
+    this.socketPrService.handlePingPong(body, socket);
   }
 
   @SubscribeMessage('join')
@@ -47,8 +42,7 @@ export class SocketPrGateway
     @MessageBody() body: SocketRoomDto,
     @ConnectedSocket() socket: Socket,
   ) {
-    socket.join(body.roomName);
-    return Array.from(socket.rooms);
+    return this.socketPrService.handleJoin(body, socket);
   }
 
   @SubscribeMessage('leave')
@@ -56,8 +50,7 @@ export class SocketPrGateway
     @MessageBody() body: SocketRoomDto,
     @ConnectedSocket() socket: Socket,
   ) {
-    socket.leave(body.roomName);
-    return Array.from(socket.rooms);
+    return this.socketPrService.handleLeave(body, socket);
   }
 
   @SubscribeMessage('send')
@@ -68,8 +61,7 @@ export class SocketPrGateway
     this.logger.log(
       `[Send] User: ${socket.id} / Room Name: ${body.roomName} / PayLoad: ${body.payload}`,
     );
-    socket.to(body.roomName).emit('send', body.payload);
-    return body;
+    return this.socketPrService.handleSend(body, socket);
   }
 
   // socket rooms 확인용 핸들러
