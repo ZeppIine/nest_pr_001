@@ -8,6 +8,7 @@ import { LectureModule } from './lecture/lecture.module';
 import typeORMConfig from './config/typeorm.config';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
+import { SocketPrModule } from './socket_pr/socket_pr.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ConfigModule } from '@nestjs/config';
     LectureModule,
     JwtModule.register({ global: true }),
     ConfigModule.forRoot({ isGlobal: true }),
+    SocketPrModule,
   ],
   controllers: [AppController],
   providers: [AppService],
